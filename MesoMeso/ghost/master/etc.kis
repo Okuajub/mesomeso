@@ -47,15 +47,22 @@ OnTranslate : $(
 # Network Update
 #--
 
+# When the Ghost begins the Network Update process. Reference 0 is your Ghost name.
 OnUpdateBegin    : $(
 	"\0\s[0]Updating "$(Reference 0)"...\w[500]";
 )
+
+# When the Ghost has successfully checked for updates.
 OnUpdateReady    : $(
 	"\0\s[0]"$(Reference 0)" new files.";
 )
+
+# When the Ghost has updated.
 OnUpdateComplete : $(
 	"\0\s[0]Successfully updated.";
 )
+
+# When the Ghost's update failed.
 OnUpdateFailure  : $(
 	"\0\s[0]The update failed. '"$(Reference 0)"' is the reason.";
 )
@@ -107,13 +114,17 @@ OnSNTPFailure : $(
 #--
 # BIFF Email Check
 #--
-# When the Ghost checks email.
+# The Ghost checks email.
 
+# When asked to check email.
+# Reference0 is the account/server being connected to.
 OnBIFFBegin : $(
 	"\0\s[0]Connecting to "$(Reference 0)"...\w[500]"
 )
 
-OnBIFFComplete, OnBIFFComplete2 : $(
+# When mail check is successful. BIFF2 occurs when no script is returned from OnBIFFComplete, only unusual circumstance.
+# Reference0 is the number of emails.
+OnBIFFComplete, OnBIFF2Complete : $(
 	if $[$(length ${talk.OnBIFFComplete} > 0)] $(
     #Reference 0 is the number of new emails. You can add reactions to certain email amounts by adding another 'else if', too.
     if $[$(Reference 0) == 0] "\0\s[0]There are no new emails." 
@@ -127,7 +138,8 @@ OnBIFFComplete, OnBIFFComplete2 : $(
 	)
 )
 
-# The first reference, Reference 2, is the name of the account/server they were connecting to. Reference 0 is the reason for failure.
+# When the Ghost has failed to check email. 
+# Reference2 is the name of the account/server they were connecting to. Reference 0 is the reason for failure.
 OnBIFFFailure : $(
 	"\0\s[0]Failed to connect to "$(Reference 2)". The reason was '"$(Reference 0)"'.\w[500]"
 )
@@ -136,12 +148,12 @@ OnBIFFFailure : $(
 # Headlines and RSS
 #--
 
-# Checking both headlines and RSS feeds. reference0 is the feed name.
+# Checking both headlines and RSS feeds. Reference0 is the feed name.
 OnHeadlinesenseBegin, OnRSSBegin : (
 	"\0\s[0]Checking the feed of "$(Reference 0)"..."\w[500]
 )
 
-# Failed to check headlines or RSS feeds. reference0 is the feed name.
+# Failed to check headlines or RSS feeds. Reference0 is the feed name.
 OnHeadlinesenseFailure, OnRSSFailure : $(
 	"\0\s[0]Failed to check the feed. The reason was '"$(Reference 0)"'."
 )
@@ -151,6 +163,7 @@ OnHeadlinesenseFailure, OnRSSFailure : $(
 #--
 # Silent events that primarily inform the Ghost.
 
+# Gathers user information from SSP.
 notify.OnNotifyUserInfo : $(
     # Sets default user information.
 	echo ${SaveLoad};
@@ -182,6 +195,7 @@ OnInitializeVars : $(
 	setstr vanishFlag '0';
 )
 
+# Gathers info on itself from SSP.
 notify.OnNotifySelfInfo : $(
     # Record self information.
 	setstr ghostSelf $(Reference 0);
@@ -191,6 +205,7 @@ notify.OnNotifySelfInfo : $(
 	setstr currentBalloon $(Reference 5);
 )
 
+# Gathers info on its shell from SSP.
 notify.OnNotifyShellInfo : $(
 	# reference2 is the list of surfaces in the shell.
 	setstr @reference2 $(Reference 2);

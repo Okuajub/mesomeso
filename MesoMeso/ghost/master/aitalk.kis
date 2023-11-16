@@ -3,9 +3,10 @@
 #--
 # Ghost's random chatter.
 
-# Talk rate handler.
+# Talk rate variable.
 talkcounter : 0
 
+# Random talk handler.
 OnSecondChange : $(
     if ${System.Request.Reference3} $(
         inc talkcounter;
@@ -31,7 +32,7 @@ OnMinuteChange : $(
 #--
 # Sentence
 #--
-# Dialogue entry
+# Dialogue entry.
 
 sentence : "\0\s[0]MesoMeso..."
 

@@ -39,10 +39,9 @@ OnMouseLeaveAll : $(
 
 #-- Key presses
 # Reference 0 is the key pressed.
-
 OnKeyPress: $(
     # R for Repeat
-	if $[ $(Reference 0) == r ] ${lastTalk}
+	if $[ $(Reference 0) == 'r' ] ${lastTalk}
     # T for Talk
-    else if $[ $(Reference 0) == t ] ${OnAITalk};
+    else if $[ $(Reference 0) == 't' ] ${OnAITalk};
 )

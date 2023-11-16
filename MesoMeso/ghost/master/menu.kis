@@ -3,6 +3,11 @@
 #--
 # Double click menu.
 
+
+#--
+# Sakura Menu
+#--
+
 # Menu opening dialogue(s).
 SakuMenuTalk : "\0\s[0]MesoMeso..."
 SakuMenuTalk : "\0\s[0]MesoMeso.. MesoMeso..."

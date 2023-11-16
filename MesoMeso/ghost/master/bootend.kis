@@ -1,5 +1,5 @@
 #--
-# Bootend
+# Bootend Events
 #--
 # When the Ghost is initialized or stopped.
 
@@ -47,6 +47,7 @@ OnGhostChanging : $(
 	else "\1\s[10]\0\s[0]Switching to "${@OtherSakura}"... \w8MesoMeso..";
 )
 
+# When switched to from another Ghost.
 OnGhostChanged : $(
 	# Reference0 is the Sakura of the Ghost who was changed from to this Ghost.
 	setstr @OtherSakura $(Reference 0);
@@ -55,6 +56,7 @@ OnGhostChanged : $(
 	else "\1\s[10]\0\s[0]\w8MesoMeso.. "${@OtherSakura}"..";
 )
 
+# When calling another Ghost.
 OnGhostCalling : $(
 	# Reference0 is the Sakura of the Ghost being called.
 	setstr @OtherSakura $(Reference 0);
@@ -62,9 +64,13 @@ OnGhostCalling : $(
 	else "\1\s[10]Summoning "$(Reference 0)"...\0\s[0]\w8MesoMeso..";
 )
 
+# When changing the shell.
 OnShellChanged : $(
 	# Reference0 is the current Shell.
 	setstr @shell $(Reference 0);
 	if $[ ${@shell} == 'master' ] "\1\s[10]\0\s[0]Normal.. \w8MesoMeso.."
 	else "\1\s[10]\0\s[0]Shiny.. \w8MesoMeso..";
-) 
+)
+
+# When being unminimized.
+OnWindowStateRestore : "\1\s[10]\0\s[0]Back.. MesoMeso..."
