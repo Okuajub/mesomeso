@@ -1,0 +1,27 @@
+version,1
+
+//Surfaces.txt
+
+
+//Main Character
+
+surface0
+{
+
+element0,overlay,surface0.png,0,0
+
+//Collisions
+
+collision0,63,45,178,97,Head
+
+}
+
+//Side Character
+
+
+surface10
+{
+
+element0,overlay,surface10.png,0,0
+
+}

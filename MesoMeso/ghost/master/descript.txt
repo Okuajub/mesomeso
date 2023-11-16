@@ -1,0 +1,22 @@
+//Ghost descript.
+
+charset,UTF-8
+type,ghost
+shiori,shiori.dll
+icon,icon.ico
+readme.charset,UTF-8
+
+//Ghost and character names.
+name,MesoMeso
+sakura.name,Lilick
+kero.name,Inus
+
+//Creator Credit
+craftman,username
+craftmanurl,https://dummy.url/
+
+//Update URL
+homeurl,https://update.url/
+
+//Balloon(s) to highlight
+balloon,none

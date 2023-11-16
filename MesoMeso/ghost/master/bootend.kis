@@ -1,0 +1,70 @@
+#--
+# Bootend
+#--
+# When the Ghost is initialized or stopped.
+
+# This happens on ALL booting.
+OnInitialize : (
+	${SaveLoad}
+)
+# This happens on ALL closing.
+OnDestroy : $(
+	SaveData;
+)
+
+# Default surfaces the Ghost returns to when idle.
+OnSurfaceRestore : "\1\s[10]\0\s[0]"
+
+# This happens the first time a user boots the Ghost.
+OnFirstBoot : $(
+	SaveData;
+	# First boot:
+	if $[$(Reference 0) == 0] "\1\s[10]\0\s[0]First boot... \w8MesoMeso.."
+	# Reinstallation:
+	else if $[$(Reference 0) > 10] "\1\s[10]\0\s[0]Reinstalled. \w8MesoMeso.."
+	# Reinstalling 11 or more times:
+    else "\1\s[10]\0\s[0]Reinstalled again. \w8MesoMeso..";
+)
+
+# This happens during the specific event "OnBoot".
+OnBoot : "\0\s[0]\1\s[10]MesoMeso.."
+OnBoot : "\1\s[10]\0\s[0]MesoMeso.."
+
+# This happens during the specific event "OnClose". Don't forget the "\-" tag to close the Ghost.
+OnClose : "\0\s[0]MesoMeso..\w8MesoMeso..\_w[500]\-\e"
+OnClose : "\1\s[10]MesoMeso..\_w[500]\-\e"
+
+# When switching to another Ghost.
+OnGhostChanging : $(
+	# Reference0 is the Sakura of the Ghost being changed to. Reference 1 is if the change was manual or automatic.
+	setstr @OtherSakura $(Reference 0);
+	setstr @type $(Reference 1);
+	# If changing to a Ghost named Emily:
+	if $[ ${@OtherSakura} == 'Emily'] "\1\s[10]\0\s[0]Changing to Emily.."
+	# If recognized as self:
+	else if $[ ${@OtherSakura} == ${ghostSakura} ] "\1\s[10]\0\s[0]Reloading.. \w8MesoMeso.."
+	# Default:
+	else "\1\s[10]\0\s[0]Switching to "${@OtherSakura}"... \w8MesoMeso..";
+)
+
+OnGhostChanged : $(
+	# Reference0 is the Sakura of the Ghost who was changed from to this Ghost.
+	setstr @OtherSakura $(Reference 0);
+	if $[ ${@OtherSakura} == 'Emily' ] "\1\s[10]\0\s[0]MesoMeso.. Emily..."
+	else if $[${@OtherSakura} == ${ghostSakura}] "\1\s[10]\0\s[0]Reloaded. \w8MesoMeso.."
+	else "\1\s[10]\0\s[0]\w8MesoMeso.. "${@OtherSakura}"..";
+)
+
+OnGhostCalling : $(
+	# Reference0 is the Sakura of the Ghost being called.
+	setstr @OtherSakura $(Reference 0);
+	if $[ ${@OtherSakura} == 'Emily' ] "\0\s[0]Summoning... Emily...\1\s[10]\w8MesoMeso.."
+	else "\1\s[10]Summoning "$(Reference 0)"...\0\s[0]\w8MesoMeso..";
+)
+
+OnShellChanged : $(
+	# Reference0 is the current Shell.
+	setstr @shell $(Reference 0);
+	if $[ ${@shell} == 'master' ] "\1\s[10]\0\s[0]Normal.. \w8MesoMeso.."
+	else "\1\s[10]\0\s[0]Shiny.. \w8MesoMeso..";
+) 
