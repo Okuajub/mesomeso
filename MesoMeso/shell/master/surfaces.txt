@@ -1,7 +1,10 @@
-version,1
-
 //Surfaces.txt
 
+//Sufaces.txt version
+descript
+{
+  version,1
+}
 
 //Main Character
 

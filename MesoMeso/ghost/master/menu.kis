@@ -1,7 +1,7 @@
 #--
 # Menus
 #--
-# Double click menu.
+# Double click menus.
 
 
 #--
@@ -18,6 +18,7 @@ OnLastTalk : ${lastTalk}
 
 OnSakuraMenu : (
     # Remembers what dialogue the user saw when changing the talk interval.
+    # If you would like to have it reset every time/not load instantly, simply comment this line out.
     $( if $[ $(Reference 0) != 1 ] $(setstr MenuDialogue ${SakuMenuTalk}\w4 ) else if $[ $( match ${MenuDialogue} "\_q" ) = -1 ] $(setstr MenuDialogue \_q${MenuDialogue}\_q ) )
 
     # Menu start:
@@ -133,15 +134,15 @@ talk.OnPronounsDeleted : "\0\s[0]Not pronouns... MesoMeso.."
 
 # When inputting custom pronouns.
 # I do suggest giving an example of the pronoun for the ease of the user.
-talk.Pronouns1 : "\0\s[0]MesoMeso.\n\n[half]* A pronoun in place of 'he', 'she', or 'they'?\n\n[half]MesoMeso..."
+talk.Pronouns1 : "\0\s[0]MesoMeso.\n\n[half]*What would it be instead of 'he' in 'He talked'?\n\n[half]MesoMeso..."
 
-talk.Pronouns2 : "\0\s[0]Keep going.. MesoMeso..\n\n[half]* A pronoun in place of 'him', 'her', or 'them'?"
+talk.Pronouns2 : "\0\s[0]Keep going.. MesoMeso..\n\n[half]* Instead of 'him' in 'That's him'?"
 
-talk.Pronouns3 : "\0\s[0]MesoMeso...\n\n[half]* A pronoun in place of 'his', 'her', or 'their'?"
+talk.Pronouns3 : "\0\s[0]MesoMeso...\n\n[half]* Instead of 'his' in 'His dog'?"
 
-talk.Pronouns4 : "\0\s[0] \n\n[half]* A pronoun in place of 'his', 'hers', or 'theirs'?\n\n[half]MesoMeso..."
+talk.Pronouns4 : "\0\s[0] \n\n[half]* Instead of 'hers' in 'That's hers'?\n\n[half]MesoMeso..."
 
-talk.Pronouns5 : "\0\s[0]Last.. MesoMeso... \n\n[half]* A pronoun in place of 'himself', 'herself', or 'themself'?"
+talk.Pronouns5 : "\0\s[0]Last.. MesoMeso... \n\n[half]* Instead of 'herself' in 'She knows herself'?"
 
 talk.Pronouns6 : "\0\s[0]MesoMeso... Singular or plural? \n\n[half]* '"${temp.they}" are tired.' is plural."
 
@@ -155,7 +156,7 @@ talk.OnExitPronouns : "\0\s[0]MesoMeso...."
 talk.OnTestPronouns : (
     "MesoMeso... "${username}" went for a swim. "$(cap $user.they[${i}])" swam for hours.. The whole ocean was "$user.theirs[${i}]"...\w8 "
     $(cap $user.their[${i}])" lungs were bursting for air. MesoMeso... For "$user.them[${i}]", water was life. "
-    $user.they[${i}] $(SP 'is' 'are') "the sea life. The ocean all to "$user.themself[${i}]"."
+    $user.they[${i}] $(SP 'is' 'are')" the sea life. The ocean all to "$user.themself[${i}]"."
 )
 
 OnAssignTalkRate : (
@@ -175,8 +176,6 @@ SakuraQuit : "\0\s[0]MesoMeso...", "\0\s[0]MesoMeso... Later..."
 #--
 # Kero Menu
 #--
-# A Kero's menu is often used for extra features or information not provided by the Sakura.
-# If you don't have a Kero, you can leave this alone or remove it. But I suggest taking a look at it to get an idea of what you can do.
 
 KeroMenuTalk : "\1\s[10]MesoMeso..?","\1\s[10]MesoMeso... "${username}"."
 
@@ -193,7 +192,7 @@ OnKeroMenu : (
 )
 
 OnIntroduceSelf : (
-    "\1\s[10]\t...\w8...\_w[10000] MesoMeso..."
+    "\1\s[10]\t...\w8...\_w[2000] MesoMeso..."
 )
 
 # Having a debug menu can be helpful as you can hide it from the user as needed.

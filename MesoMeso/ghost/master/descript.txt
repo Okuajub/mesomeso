@@ -19,4 +19,4 @@ craftmanurl,https://dummy.url/
 homeurl,https://update.url/
 
 //Balloon(s) to highlight
-balloon,none
+//balloon,balloon name

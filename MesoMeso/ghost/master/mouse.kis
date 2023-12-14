@@ -30,7 +30,7 @@ OnMouseMove, OnMouseWheel : $(
 )
 
 # Waiting time for petting response. Adjustable.
-strokeLimit : 50
+strokeLimit : 40
 
 # Sets the stroke counter to 0 when the mouse isn't on the Ghost.
 OnMouseLeaveAll : $(
@@ -43,5 +43,7 @@ OnKeyPress: $(
     # R for Repeat
 	if $[ $(Reference 0) == 'r' ] ${lastTalk}
     # T for Talk
-    else if $[ $(Reference 0) == 't' ] ${OnAITalk};
+    else if $[ $(Reference 0) == 't' ] ${OnAITalk}
+	# F1 for Readme
+	else if $[ $(Reference 0) == 'f1' ] "\![open,readme]\e";
 )

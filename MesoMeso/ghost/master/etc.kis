@@ -90,7 +90,7 @@ OnSNTPCompare : $(
     # If clock does not match:
 	if $[$(Reference 3) != 0] $(echo 
 	"\0\s[0]The time retrieved from "$(Reference 0)" is "${@ntime}". Your device's time is "${@wtime}"."
-    "\w8 Would you like me to fix the clock?"
+    "\w8 Would you like to fix the clock?"
     "\n\n[half]\q[Yes,OnSNTPChange]"
     "\n\q[No,OnQuit,0]")
 	else $(echo "The clock's already correct.")
@@ -101,14 +101,12 @@ OnSNTPChange  : "\6\e"
 
 # Successfully corrected the time.
 OnSNTPCorrect : $(
-	if $[$(length ${talk.OnSNTPCorrect} > 0)] ${talk.OnSNTPCorrect}
-	else "\0\s[0]The clock's been corrected.";
+	"\0\s[0]The clock's been corrected.";
 )
 
 # Unsuccessful correction of the time.
 OnSNTPFailure : $(
-	if $[$(length ${talk.OnSNTPFailure} > 0)] ${talk.OnSNTPFailure}"\w[500]"
-	else "\0\s[0]Failed to connect to "$(Reference 0)".\w[500]";
+	"\0\s[0]Failed to connect to "$(Reference 0)".\w[500]";
 )
 
 #--
@@ -125,17 +123,9 @@ OnBIFFBegin : $(
 # When mail check is successful. BIFF2 occurs when no script is returned from OnBIFFComplete, only unusual circumstance.
 # Reference0 is the number of emails.
 OnBIFFComplete, OnBIFF2Complete : $(
-	if $[$(length ${talk.OnBIFFComplete} > 0)] $(
-    #Reference 0 is the number of new emails. You can add reactions to certain email amounts by adding another 'else if', too.
-    if $[$(Reference 0) == 0] "\0\s[0]There are no new emails." 
+	if $[$(Reference 0) == 0] "\0\s[0]There are no new emails." 
     else if $[$(Reference 0) = 1] "\0\s[0]There is 1 email." 
     else "\0\s[0]There are "$(Reference 0)" emails."
-    )
-	else $(
-		if $[$(Reference 0) == 0] "\0\s[0]There are no new emails." 
-		else if $[$(Reference 0) = 1] "\0\s[0]There is 1 email." 
-		else "\0\s[0]There are "$(Reference 0)" emails."
-	)
 )
 
 # When the Ghost has failed to check email. 
